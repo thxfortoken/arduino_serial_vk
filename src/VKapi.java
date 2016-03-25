@@ -21,8 +21,8 @@ public class VKapi {
     private String token = "61c2cc4f1a2a5b87ae928f2948e23831f6f78510c3bcb9027bd9e38ca66ace7fcd5e2b5431657fdb3c4fe&expires_in=86400&user_id=15360888";
     private String response_type = "token";
     private String access_token;
-    private String email = "thxfortoken@gmail.com";//тут должен быть прописан email
-    private String pass = "Ztnmulten1@";//тут должен быть прописан пароль
+    private String email = "";//тут должен быть прописан email
+    private String pass = "";//тут должен быть прописан пароль
 
     public void setConnection() throws IOException, URISyntaxException {
         HttpClient httpClient = HttpClients.createDefault();

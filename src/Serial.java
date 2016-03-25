@@ -12,7 +12,7 @@ public class Serial implements SerialPortEventListener {
     /**
      * The port we're normally going to use.
      */
-    private static final String PORT_NAMES[] = {"COM3"};// windows com port
+    private static final String PORT_NAMES[] = {"COM3"};
     /**
      * Buffered input stream from the port
      */
@@ -34,7 +34,6 @@ public class Serial implements SerialPortEventListener {
         CommPortIdentifier portId = null;
         Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
-        // iterate through, looking for the port
         while (portEnum.hasMoreElements()) {
             CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
             for (String portName : PORT_NAMES) {
@@ -53,20 +52,16 @@ public class Serial implements SerialPortEventListener {
         }
 
         try {
-            // open serial port, and use class name for the appName.
             serialPort = (SerialPort) portId.open(this.getClass().getName(), TIME_OUT);
 
-            // set port parameters
             serialPort.setSerialPortParams(DATA_RATE,
                     SerialPort.DATABITS_8,
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);
 
-            // open the streams
             input = serialPort.getInputStream();
             output = serialPort.getOutputStream();
 
-            // add event listeners
             serialPort.addEventListener(this);
             serialPort.notifyOnDataAvailable(true);
         } catch (Exception e) {
@@ -95,10 +90,9 @@ public class Serial implements SerialPortEventListener {
         if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
                 int myByte = input.read();
-                int value = myByte & 0xff;//byte to int conversion:0...127,-127...0 -> 0...255
-                if (value >= 0 && value < 256) {//make shure everything is ok
+                int value = myByte & 0xff;
+                if (value >= 0 && value < 256) {
                     System.out.println(myByte);
-                    //sendSingleByte((byte)myByte);
                 }
             } catch (Exception e) {
                 System.err.println(e.toString());
